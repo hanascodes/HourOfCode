@@ -1,0 +1,33 @@
+#hour of code, presented by H
+fruit="Peach"
+print(fruit)
+
+fruit1="Banana"
+
+print(fruit, "and", fruit1, "are examples of fruit.")
+
+basket =[fruit, fruit1]
+
+#append means to add something to something
+
+basket.append("Pineapple")
+
+print(basket)
+
+basket.remove("Banana")
+
+print(basket[-1])
+
+for i in range(0, 2):
+  print(basket[i])
+  
+#ocjena=5
+#print(ocjena)
+
+def addtoBasket(basket, newItem):
+  newBasket=basket.append(newItem)
+  return newBasket
+
+addtoBasket(basket, "Toni")
+
+print("After", basket)
