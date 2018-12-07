@@ -1,0 +1,46 @@
+from bs4 import BeautifulSoup
+import requests
+
+page = requests.get("http://weather.ba")
+soup=BeautifulSoup(page.content, 'html.parser')
+
+weather_descriptions=[]
+city_names=[]
+temperatures=[]
+
+for column in ["levakol", "desnakol"]:
+    weather_div=soup.find(id=column)
+    
+    for name in weather_div.find_all("a"):
+        city_names.append(name.get_text())
+        
+    for description in weather_div.find_all("img"):
+        weather_descriptions.append(description["alt"])
+        
+    for temperature in weather_div.find_all(class_="max"):
+        temperatures.append(int(temperature.get_text()))
+
+print(city_names)
+print()
+print(weather_descriptions)
+print()
+print(temperatures)
+print()
+
+import pandas as pd 
+
+new_index=range(1, 15)
+
+custom_index=range(1, 15)
+
+df=pd.DataFrame({
+    "City name": city_names,
+    "Weather description": weather_descriptions,
+    "Temperature": temperatures
+}, index=new_index)
+
+df
+df.describe()
+
+df.tail(8) #or head
+
